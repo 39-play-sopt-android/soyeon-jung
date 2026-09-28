@@ -35,7 +35,7 @@
 
 | Hello Android |
 | :---: |
-| <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Platalea_minor.jpg" width="250"/> |
+| <img width="1080" height="128" alt="KakaoTalk_20260928_171608545" src="https://github.com/user-attachments/assets/677e2806-bfdb-428f-bc6d-4f24b36ce836" />|
 
 ## 💬 각오 한마디
 

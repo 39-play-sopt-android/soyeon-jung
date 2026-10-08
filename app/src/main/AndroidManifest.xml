@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Androidone">
         <activity
-            android:name=".LoginActivity"
+            android:name="org.sopt.play.LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Androidone"
@@ -23,8 +23,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name="org.sopt.play.RegisterActivity" />
+        <activity android:name="org.sopt.play.MainActivity" />
 
     </application>
 

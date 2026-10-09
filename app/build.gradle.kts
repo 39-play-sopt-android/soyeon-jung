@@ -4,17 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "org.sopt.play"
+    namespace = "com.example.androidone"
     compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
+        version = release(37)
     }
 
     defaultConfig {
-        applicationId = "org.sopt.play"
+        applicationId = "com.example.androidone"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 

@@ -24,13 +24,14 @@ import org.sopt.play.core.designsystem.component.SoptButton
 import org.sopt.play.core.designsystem.component.SoptTextField
 import org.sopt.play.core.designsystem.theme.Black
 import org.sopt.play.core.designsystem.theme.Gray3
+import org.sopt.play.core.designsystem.theme.Gray6
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.SoptTypography
 
 @Composable
 fun LoginScreen(
     onLoginClick: (String, String) -> Unit,
-    onRegisterClick: () ->Unit,
+    onRegisterClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var email by remember { mutableStateOf("") }
@@ -46,16 +47,18 @@ fun LoginScreen(
             .fillMaxSize()
             .padding(horizontal = 16.dp)
     ) {
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(60.dp))
         Text(text = "이메일로 로그인하기", style = SoptTypography.b28, color = Black)
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(40.dp))
 
         SoptTextField(
-            label = "이메일 주소", value = email, onValueChange = { email = it },
-            "abc@email.com",
+            label = "이메일 주소",
+            value = email,
+            onValueChange = { email = it },
+            placeholder = "abc@email.com",
             isError = isEmailError, errorMessage = "올바른 이메일을 입력해주세요."
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(32.dp))
         SoptTextField(
             label = "비밀번호", value = password, onValueChange = { password = it },
             placeholder = "6자 이상의 비밀번호", isPassword = true,
@@ -76,8 +79,8 @@ fun LoginScreen(
             Spacer(modifier = Modifier.width(12.dp))
             Text(
                 text = "회원가입하기",
-                style = SoptTypography.sb14,
-                color = Black,
+                style = SoptTypography.m14,
+                color = Gray6,
                 modifier = Modifier.clickable { onRegisterClick() }
             )
         }

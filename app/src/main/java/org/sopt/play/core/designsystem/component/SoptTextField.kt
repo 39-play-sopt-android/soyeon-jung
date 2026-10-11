@@ -18,10 +18,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.play.core.designsystem.theme.Black
 import org.sopt.play.core.designsystem.theme.Gray2
-import org.sopt.play.core.designsystem.theme.Gray3
 import org.sopt.play.core.designsystem.theme.Gray5
+import org.sopt.play.core.designsystem.theme.Gray6
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.Red
 import org.sopt.play.core.designsystem.theme.SoptTypography
@@ -48,24 +47,32 @@ fun SoptTextField(
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
             text = label,
-            style = SoptTypography.m14,
-            color = Black,
-            modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
+            style = SoptTypography.sb16,
+            color = Gray6,
+            modifier = Modifier.padding(start = 8.dp, bottom = 6.dp)
         )
+
         BasicTextField(
             value = value,
             onValueChange = onValueChange,
             singleLine = true,
-            textStyle = SoptTypography.m18.copy(color = Black),
+            textStyle = SoptTypography.m18.copy(
+                color = if (isError) Gray6
+                else Gray5
+            ),
             visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
             modifier = Modifier
                 .fillMaxWidth()
-                .border(1.dp, borderColor, RoundedCornerShape(12.dp))
+                .border(
+                    2.dp,
+                    color = borderColor,
+                    RoundedCornerShape(12.dp)
+                )
                 .padding(16.dp)
                 .onFocusChanged { isFocused = it.isFocused },
             decorationBox = { innerTextField ->
                 if (value.isEmpty()) {
-                    Text(text = placeholder, style = SoptTypography.m18, color = Gray3)
+                    Text(text = placeholder, style = SoptTypography.m18, color = Gray2)
                 }
                 innerTextField()
             }

@@ -2,10 +2,13 @@ package org.sopt.play.core.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,14 +34,18 @@ fun SoptButton(
         modifier = modifier
             .fillMaxWidth()
             .height(52.dp)
-            .clip(RoundedCornerShape(100.dp))
+            .clip(shape = CircleShape)
             .background(if (enabled) Black else Gray1)
-            .clickable(enabled = enabled) { onClick() },
+            .clickable(enabled = enabled, onClick = onClick)
+            .padding(vertical = 16.dp),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = text, style = SoptTypography.sb14, color = if (enabled) White else Gray3)
+        Text(
+            text = text, style = SoptTypography.sb14,
+            color = if (enabled) White else Gray3)
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 private fun SoptButtonEnabledPreview() {
@@ -53,12 +60,22 @@ private fun SoptButtonEnabledPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun SoptButtonDisabledPreview() {
+private fun SoptButtonPreview() {
     PlaySoptTheme {
-        SoptButton(
-            text = "로그인",
-            enabled = false,
-            onClick = {}
-        )
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            SoptButton(
+                text = "로그인",
+                enabled = true,
+                onClick = {}
+            )
+            SoptButton(
+                text = "로그인",
+                enabled = false,
+                onClick = {}
+            )
+        }
     }
 }

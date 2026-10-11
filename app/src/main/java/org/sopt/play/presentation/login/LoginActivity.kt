@@ -27,6 +27,7 @@ class LoginActivity : ComponentActivity() {
             registeredPassword = result.data?.getStringExtra("password") ?: ""
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -64,5 +65,4 @@ class LoginActivity : ComponentActivity() {
             }
         }
     }
-
 }

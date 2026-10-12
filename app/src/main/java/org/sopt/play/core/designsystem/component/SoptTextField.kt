@@ -72,7 +72,11 @@ fun SoptTextField(
                 .onFocusChanged { isFocused = it.isFocused },
             decorationBox = { innerTextField ->
                 if (value.isEmpty()) {
-                    Text(text = placeholder, style = SoptTypography.m18, color = Gray2)
+                    Text(
+                        text = placeholder,
+                        style = SoptTypography.m18,
+                        color = Gray2
+                    )
                 }
                 innerTextField()
             }

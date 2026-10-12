@@ -36,7 +36,8 @@ fun RegisterScreen(
     val isPasswordCheckError = passwordCheck.isNotEmpty() && passwordCheck != password
 
     val isButtonEnabled =
-        email.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty() && !isEmailError && !isPasswordError && !isPasswordCheckError
+        name.isNotBlank() && email.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty() &&
+                !isEmailError && !isPasswordError && !isPasswordCheckError
 
     Column(
         modifier = modifier
@@ -44,7 +45,13 @@ fun RegisterScreen(
             .padding(horizontal = 16.dp)
     ) {
         Spacer(modifier = Modifier.height(60.dp))
-        Text(text = "이메일로 회원가입", style = SoptTypography.b28, color = Black)
+
+        Text(
+            text = "이메일로 회원가입",
+            style = SoptTypography.b28,
+            color = Black
+        )
+
         Spacer(modifier = Modifier.height(40.dp))
 
         SoptTextField(
@@ -53,31 +60,52 @@ fun RegisterScreen(
             onValueChange = { name = it },
             placeholder = "홍길동"
         )
+
         Spacer(modifier = Modifier.height(32.dp))
+
         SoptTextField(
-            label = "이메일 주소", value = email, onValueChange = { email = it },
+            label = "이메일 주소",
+            value = email,
+            onValueChange = { email = it },
             placeholder = "abc@email.com",
-            isError = isEmailError, errorMessage = "올바른 이메일을 입력해주세요."
+            isError = isEmailError,
+            errorMessage = "올바른 이메일을 입력해주세요."
         )
+
         Spacer(modifier = Modifier.height(32.dp))
+
         SoptTextField(
-            label = "비밀번호", value = password, onValueChange = { password = it },
-            placeholder = "6자 이상의 비밀번호", isPassword = true,
-            isError = isPasswordError, errorMessage = "비밀번호는 6자 이상 입력해주세요."
+            label = "비밀번호",
+            value = password,
+            onValueChange = { password = it },
+            placeholder = "6자 이상의 비밀번호",
+            isPassword = true,
+            isError = isPasswordError,
+            errorMessage = "비밀번호는 6자 이상 입력해주세요."
         )
+
         Spacer(modifier = Modifier.height(32.dp))
+
         SoptTextField(
-            label = "비밀번호 확인", value = passwordCheck, onValueChange = { passwordCheck = it },
-            placeholder = "6자 이상의 비밀번호", isPassword = true,
-            isError = isPasswordCheckError, errorMessage = "비밀번호와 동일하게 입력해주세요."
+            label = "비밀번호 확인",
+            value = passwordCheck,
+            onValueChange = { passwordCheck = it },
+            placeholder = "6자 이상의 비밀번호",
+            isPassword = true,
+            isError = isPasswordCheckError,
+            errorMessage = "비밀번호와 동일하게 입력해주세요."
         )
+
         Spacer(modifier = Modifier.height(40.dp))
+
         SoptButton(
             text = "회원가입",
             enabled = isButtonEnabled,
-            onClick = { onRegisterClick(email, password) })
+            onClick = { onRegisterClick(email, password) }
+        )
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 private fun RegisterScreenPreview() {

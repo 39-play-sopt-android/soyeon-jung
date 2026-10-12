@@ -33,7 +33,7 @@ fun SoptButton(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(52.dp)
+            .height(min=52.dp)
             .clip(shape = CircleShape)
             .background(if (enabled) Black else Gray1)
             .clickable(enabled = enabled, onClick = onClick)
@@ -41,19 +41,9 @@ fun SoptButton(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = text, style = SoptTypography.sb14,
-            color = if (enabled) White else Gray3)
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun SoptButtonEnabledPreview() {
-    PlaySoptTheme {
-        SoptButton(
-            text = "로그인",
-            enabled = true,
-            onClick = {}
+            text = text,
+            style = SoptTypography.sb14,
+            color = if (enabled) White else Gray3
         )
     }
 }

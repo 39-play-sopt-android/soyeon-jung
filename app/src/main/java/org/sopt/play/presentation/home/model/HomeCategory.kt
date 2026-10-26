@@ -1,7 +1,5 @@
 package org.sopt.play.presentation.home.model
 
-package org.sopt.play.presentation.home.model
-
 enum class HomeCategory(
     val title: String,
 ) {

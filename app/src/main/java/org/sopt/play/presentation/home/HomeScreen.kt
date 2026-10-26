@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -17,20 +18,27 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.play.core.designsystem.component.ProductCard
+import org.sopt.play.core.designsystem.component.SoptProductCard
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.White
 import org.sopt.play.presentation.home.component.HomeBanner
 import org.sopt.play.presentation.home.component.HomeMenuTab
-import org.sopt.play.presentation.home.component.HomeRecommendSection
+import org.sopt.play.presentation.home.component.HomeRecommendHeader
 import org.sopt.play.presentation.home.component.HomeTopBar
+import org.sopt.play.presentation.home.model.Banner
 import org.sopt.play.presentation.home.model.HomeDummyData
+import org.sopt.play.presentation.home.model.HomeMenu
+import org.sopt.play.presentation.home.model.Product
 
 @Composable
 fun HomeScreen(
+    userName: String,
+    banners: List<Banner>,
+    categories: List<String>,
+    products: List<Product>,
     modifier: Modifier = Modifier,
 ) {
-    var selectedMenu by rememberSaveable { mutableStateOf("홈") }
+    var selectedMenu by rememberSaveable { mutableStateOf(HomeMenu.HOME) }
     var selectedCategory by rememberSaveable { mutableStateOf("전체") }
 
     Column(
@@ -42,15 +50,13 @@ fun HomeScreen(
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(bottom = 40.dp),
+            contentPadding = PaddingValues(bottom = 96.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
             item(
                 span = { GridItemSpan(maxLineSpan) },
             ) {
                 HomeMenuTab(
-                    menus = HomeDummyData.menus,
                     selectedMenu = selectedMenu,
                     onMenuClick = { selectedMenu = it },
                 )
@@ -60,26 +66,31 @@ fun HomeScreen(
                 span = { GridItemSpan(maxLineSpan) },
             ) {
                 HomeBanner(
-                    banners = HomeDummyData.banners,
+                    banners = banners,
+                    modifier = Modifier.padding(vertical = 8.dp),
                 )
             }
 
             item(
                 span = { GridItemSpan(maxLineSpan) },
             ) {
-                HomeRecommendSection(
-                    userName = "김솝트",
-                    categories = HomeDummyData.categories,
+                HomeRecommendHeader(
+                    userName = userName,
+                    categories = categories,
                     selectedCategory = selectedCategory,
                     onCategoryClick = { selectedCategory = it },
+                    modifier = Modifier.padding(
+                        top = 20.dp,
+                        bottom = 20.dp,
+                    ),
                 )
             }
 
             items(
-                items = HomeDummyData.products,
+                items = products,
                 key = { it.id },
             ) { product ->
-                ProductCard(
+                SoptProductCard(
                     product = product,
                 )
             }
@@ -94,6 +105,11 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenPreview() {
     PlaySoptTheme {
-        HomeScreen()
+        HomeScreen(
+            userName = "김솝트",
+            banners = HomeDummyData.banners,
+            categories = HomeDummyData.categories,
+            products = HomeDummyData.products,
+        )
     }
 }

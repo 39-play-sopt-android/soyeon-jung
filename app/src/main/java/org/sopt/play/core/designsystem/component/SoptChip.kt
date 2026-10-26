@@ -28,20 +28,20 @@ fun SoptChip(
 ) {
     Text(
         text = text,
-        style = SoptTypography.r14,
+        style = SoptTypography.m14,
         color = if (isSelected) White else Gray5,
         modifier = modifier
-            .clip(RoundedCornerShape(4.dp))
+            .clip(RoundedCornerShape(6.dp))
             .background(if (isSelected) Gray5 else White)
             .border(
                 width = 1.dp,
                 color = if (isSelected) Gray5 else Gray2,
-                shape = RoundedCornerShape(4.dp),
+                shape = RoundedCornerShape(6.dp),
             )
             .clickable(onClick = onClick)
             .padding(
-                horizontal = 10.dp,
-                vertical = 6.dp,
+                horizontal = 12.dp,
+                vertical = 8.dp,
             ),
     )
 }

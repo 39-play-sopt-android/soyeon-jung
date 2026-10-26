@@ -22,35 +22,35 @@ object SoptTypography {
         fontWeight = FontWeight.Bold,
         fontSize = 28.sp,
         lineHeight = 1.2.em,
-        letterSpacing = (-0.01).em
+        letterSpacing = (-0.01).em,
     )
     val m18 = TextStyle(
         fontFamily = pretendard,
         fontWeight = FontWeight.Medium,
         fontSize = 18.sp,
         lineHeight = 1.2.em,
-        letterSpacing = (-0.01).em
+        letterSpacing = (-0.01).em,
     )
     val sb16 = TextStyle(
         fontFamily = pretendard,
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
         lineHeight = 1.2.em,
-        letterSpacing = (-0.01).em
+        letterSpacing = (-0.01).em,
     )
     val m14 = TextStyle(
         fontFamily = pretendard,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 1.2.em,
-        letterSpacing = (-0.01).em
+        letterSpacing = (-0.01).em,
     )
     val sb14 = TextStyle(
         fontFamily = pretendard,
         fontWeight = FontWeight.SemiBold,
         fontSize = 14.sp,
         lineHeight = 1.2.em,
-        letterSpacing = (-0.01).em
+        letterSpacing = (-0.01).em,
     )
 
     val r14 = TextStyle(

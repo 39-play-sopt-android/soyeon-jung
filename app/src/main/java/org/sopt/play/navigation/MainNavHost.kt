@@ -1,14 +1,13 @@
 package org.sopt.play.navigation
 
-import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import org.sopt.play.presentation.home.HomeScreen
+import org.sopt.play.presentation.home.model.HomeDummyData
 import org.sopt.play.presentation.login.LoginScreen
 import org.sopt.play.presentation.register.RegisterScreen
 
@@ -17,43 +16,36 @@ fun MainNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
-    val context = LocalContext.current
 
     NavHost(
         navController = navController,
-        startDestination = Login(),
+        startDestination = Route.Login(),
         modifier = modifier,
     ) {
-        composable<Login> { backStackEntry ->
-            val login = backStackEntry.toRoute<Login>()
+        composable<Route.Login> { backStackEntry ->
+            val login = backStackEntry.toRoute<Route.Login>()
 
             LoginScreen(
-                onLoginClick = { email, password ->
-                    if (email == login.email && password == login.password) {
-                        navController.navigate(Home) {
-                            popUpTo<Login> {
-                                inclusive = true
-                            }
+                registeredEmail = login.email,
+                registeredPassword = login.password,
+                onLoginSuccess = {
+                    navController.navigate(Route.Home) {
+                        popUpTo<Route.Login> {
+                            inclusive = true
                         }
-                    } else {
-                        Toast.makeText(
-                            context,
-                            "이메일 또는 비밀번호가 올바르지 않아요.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
                     }
                 },
                 onRegisterClick = {
-                    navController.navigate(Register)
+                    navController.navigate(Route.Register)
                 },
             )
         }
 
-        composable<Register> {
+        composable<Route.Register> {
             RegisterScreen(
                 onRegisterClick = { email, password ->
-                    navController.navigate(Login(email, password)) {
-                        popUpTo<Login> {
+                    navController.navigate(Route.Login(email, password)) {
+                        popUpTo<Route.Login> {
                             inclusive = true
                         }
                     }
@@ -61,8 +53,11 @@ fun MainNavHost(
             )
         }
 
-        composable<Home> {
-            HomeScreen()
+        composable<Route.Home> {
+            HomeScreen(                userName = "김솝트",
+                banners = HomeDummyData.banners,
+                categories = HomeDummyData.categories,
+                products = HomeDummyData.products,)
         }
     }
 }

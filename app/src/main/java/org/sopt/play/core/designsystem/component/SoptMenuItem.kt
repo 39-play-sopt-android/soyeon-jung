@@ -34,7 +34,7 @@ fun SoptMenuItem(
         modifier = modifier
             .clickable(onClick = onClick)
             .padding(
-                horizontal = 12.dp,
+                horizontal = 16.dp,
                 vertical = 8.dp,
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,7 +50,7 @@ fun SoptMenuItem(
 
         Text(
             text = text,
-            style = if (isSelected) SoptTypography.sb14 else SoptTypography.m14,
+            style = SoptTypography.m18,
             color = if (isSelected) Black else Gray3,
         )
     }

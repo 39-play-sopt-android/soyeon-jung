@@ -27,8 +27,8 @@ fun HomeTopBar(
             .fillMaxWidth()
             .background(White)
             .padding(
-                horizontal = 16.dp,
-                vertical = 12.dp,
+                start = 16.dp,
+                end = 6.dp,
             ),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -43,7 +43,9 @@ fun HomeTopBar(
             painter = painterResource(id = R.drawable.ic_search),
             contentDescription = "검색",
             tint = Black,
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier
+                .padding(10.dp)
+                .size(28.dp),
         )
     }
 }

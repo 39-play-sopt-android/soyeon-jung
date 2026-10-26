@@ -6,8 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import org.sopt.play.data.dummy.HomeDummyData
 import org.sopt.play.presentation.home.HomeScreen
-import org.sopt.play.presentation.home.model.HomeDummyData
 import org.sopt.play.presentation.login.LoginScreen
 import org.sopt.play.presentation.register.RegisterScreen
 
@@ -54,9 +54,9 @@ fun MainNavHost(
         }
 
         composable<Route.Home> {
-            HomeScreen(                userName = "김솝트",
+            HomeScreen(
+                userName = "김솝트",
                 banners = HomeDummyData.banners,
-                categories = HomeDummyData.categories,
                 products = HomeDummyData.products,)
         }
     }

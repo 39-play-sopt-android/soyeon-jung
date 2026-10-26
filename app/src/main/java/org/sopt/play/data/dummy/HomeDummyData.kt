@@ -1,6 +1,8 @@
-package org.sopt.play.presentation.home.model
+package org.sopt.play.data.dummy
 
 import org.sopt.play.R
+import org.sopt.play.presentation.home.model.Banner
+import org.sopt.play.presentation.home.model.Product
 
 object HomeDummyData {
 
@@ -20,19 +22,6 @@ object HomeDummyData {
             imageRes = R.drawable.img_banner_3,
             description = "hello NEW SPRING 배너",
         ),
-    )
-
-    val categories = listOf(
-        "전체",
-        "상의",
-        "팬츠",
-        "원피스",
-        "아우터",
-        "스커트",
-        "슈즈",
-        "가방",
-        "이너웨어/잠옷",
-        "폰꾸미기",
     )
 
     val products = listOf(

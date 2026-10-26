@@ -18,14 +18,13 @@ import org.sopt.play.core.designsystem.component.SoptChip
 import org.sopt.play.core.designsystem.theme.Black
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.SoptTypography
-import org.sopt.play.presentation.home.model.HomeDummyData
+import org.sopt.play.presentation.home.model.HomeCategory
 
 @Composable
 fun HomeRecommendHeader(
     userName: String,
-    categories: List<String>,
-    selectedCategory: String,
-    onCategoryClick: (String) -> Unit,
+    selectedCategory: HomeCategory,
+    onCategoryClick: (HomeCategory) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -45,11 +44,11 @@ fun HomeRecommendHeader(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
         ) {
             items(
-                items = categories,
-                key = { it },
+                items = HomeCategory.entries,
+                key = { it.name },
             ) { category ->
                 SoptChip(
-                    text = category,
+                    text = category.title,
                     isSelected = category == selectedCategory,
                     onClick = { onCategoryClick(category) },
                 )
@@ -64,8 +63,7 @@ private fun HomeRecommendHeaderPreview() {
     PlaySoptTheme {
         HomeRecommendHeader(
             userName = "김솝트",
-            categories = HomeDummyData.categories,
-            selectedCategory = "전체",
+            selectedCategory = HomeCategory.ALL,
             onCategoryClick = {},
         )
     }

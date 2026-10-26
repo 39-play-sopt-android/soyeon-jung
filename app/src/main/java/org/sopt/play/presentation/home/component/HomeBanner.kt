@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.presentation.home.model.Banner
-import org.sopt.play.presentation.home.model.HomeDummyData
+import org.sopt.play.data.dummy.HomeDummyData
 
 @Composable
 fun HomeBanner(

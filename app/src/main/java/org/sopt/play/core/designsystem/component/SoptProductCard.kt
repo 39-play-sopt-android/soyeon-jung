@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -64,10 +62,6 @@ fun SoptProductCard(
             )
         }
 
-        Spacer(
-            modifier = Modifier
-                .height(12.dp))
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -106,7 +100,7 @@ fun SoptProductCard(
 
                 Text(
                     text = "%,d".format(product.price),
-                    style = SoptTypography.sb14,
+                    style = SoptTypography.m14,
                     color = Black,
                 )
             }
@@ -114,29 +108,28 @@ fun SoptProductCard(
     }
 }
 
-private val longTextProduct = Product(
-    id = 100,
-    imageRes = R.drawable.img_product_1,
-    storeName = "트랜디어패럴 공식 스토어 단독 브랜드관",
-    productName = "[카프리1위🏆/5부,7부,9부] 데일리 와이드 핏 카프리 팬츠 봄 여름 가을 신상",
-    discountRate = 99,
-    price = 1234567,
-    isLiked = true,
-)
-
-private val shortTextProduct = Product(
-    id = 101,
-    imageRes = R.drawable.img_product_2,
-    storeName = "어텀",
-    productName = "셔츠",
-    discountRate = 5,
-    price = 9900,
-    isLiked = false,
-)
-
 @Preview(showBackground = true)
 @Composable
 private fun SoptProductCardPreview() {
+    val longTextProduct = Product(
+        id = 100,
+        imageRes = R.drawable.img_product_1,
+        storeName = "트랜디어패럴 공식 스토어 단독 브랜드관",
+        productName = "[카프리1위🏆/5부,7부,9부] 데일리 와이드 핏 카프리 팬츠 봄 여름 가을 신상",
+        discountRate = 99,
+        price = 1234567,
+        isLiked = true,
+    )
+
+    val shortTextProduct = Product(
+        id = 101,
+        imageRes = R.drawable.img_product_2,
+        storeName = "어텀",
+        productName = "셔츠",
+        discountRate = 5,
+        price = 9900,
+        isLiked = false,
+    )
     PlaySoptTheme {
         Row(
             modifier = Modifier.width(360.dp),

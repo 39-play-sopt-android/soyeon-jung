@@ -26,7 +26,8 @@ import org.sopt.play.presentation.home.component.HomeMenuTab
 import org.sopt.play.presentation.home.component.HomeRecommendHeader
 import org.sopt.play.presentation.home.component.HomeTopBar
 import org.sopt.play.presentation.home.model.Banner
-import org.sopt.play.presentation.home.model.HomeDummyData
+import org.sopt.play.data.dummy.HomeDummyData
+import org.sopt.play.presentation.home.model.HomeCategory
 import org.sopt.play.presentation.home.model.HomeMenu
 import org.sopt.play.presentation.home.model.Product
 
@@ -34,12 +35,11 @@ import org.sopt.play.presentation.home.model.Product
 fun HomeScreen(
     userName: String,
     banners: List<Banner>,
-    categories: List<String>,
     products: List<Product>,
     modifier: Modifier = Modifier,
 ) {
     var selectedMenu by rememberSaveable { mutableStateOf(HomeMenu.HOME) }
-    var selectedCategory by rememberSaveable { mutableStateOf("전체") }
+    var selectedCategory by rememberSaveable { mutableStateOf(HomeCategory.ALL) }
 
     Column(
         modifier = modifier
@@ -76,7 +76,6 @@ fun HomeScreen(
             ) {
                 HomeRecommendHeader(
                     userName = userName,
-                    categories = categories,
                     selectedCategory = selectedCategory,
                     onCategoryClick = { selectedCategory = it },
                     modifier = Modifier.padding(
@@ -108,7 +107,6 @@ private fun HomeScreenPreview() {
         HomeScreen(
             userName = "김솝트",
             banners = HomeDummyData.banners,
-            categories = HomeDummyData.categories,
             products = HomeDummyData.products,
         )
     }

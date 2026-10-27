@@ -26,7 +26,7 @@ import org.sopt.play.presentation.home.component.HomeMenuTab
 import org.sopt.play.presentation.home.component.HomeRecommendHeader
 import org.sopt.play.presentation.home.component.HomeTopBar
 import org.sopt.play.presentation.home.model.Banner
-import org.sopt.play.data.dummy.HomeDummyData
+import org.sopt.play.presentation.home.dummy.HomeDummyData
 import org.sopt.play.presentation.home.model.HomeCategory
 import org.sopt.play.presentation.home.model.HomeMenu
 import org.sopt.play.presentation.home.model.Product

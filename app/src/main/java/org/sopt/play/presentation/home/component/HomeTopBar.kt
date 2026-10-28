@@ -1,0 +1,51 @@
+package org.sopt.play.presentation.home.component
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import org.sopt.play.R
+import org.sopt.play.core.designsystem.theme.Black
+import org.sopt.play.core.designsystem.theme.SoptTypography
+import org.sopt.play.core.designsystem.theme.White
+
+@Composable
+fun HomeTopBar(
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(White)
+            .padding(
+                start = 16.dp,
+                end = 6.dp,
+            ),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = "PLAY SOPT",
+            style = SoptTypography.b28,
+            color = Black,
+        )
+
+        Icon(
+            painter = painterResource(id = R.drawable.ic_search),
+            contentDescription = "검색",
+            tint = Black,
+            modifier = Modifier
+                .padding(10.dp)
+                .size(28.dp),
+        )
+    }
+}

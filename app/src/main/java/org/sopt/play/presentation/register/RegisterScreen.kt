@@ -1,6 +1,5 @@
 package org.sopt.play.presentation.register
 
-import android.util.Patterns
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,13 +10,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import org.sopt.play.core.designsystem.component.SoptButton
 import org.sopt.play.core.designsystem.component.SoptTextField
 import org.sopt.play.core.designsystem.theme.Black
@@ -25,23 +24,45 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.SoptTypography
 
 @Composable
-fun RegisterScreen(
-    onRegisterClick: (String, String) -> Unit,
-    modifier: Modifier = Modifier
+fun RegisterRoute(
+    onRegisterSuccess: (String, String) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: RegisterViewModel = viewModel(),
 ) {
-    var name by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordCheck by remember { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val isEmailError = email.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    val isPasswordError = password.isNotEmpty() && password.length < 6
-    val isPasswordCheckError = passwordCheck.isNotEmpty() && passwordCheck != password
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { sideEffect ->
+            when (sideEffect) {
+                is RegisterSideEffect.NavigateToLogin -> onRegisterSuccess(
+                    sideEffect.email,
+                    sideEffect.password,
+                )
+            }
+        }
+    }
 
-    val isButtonEnabled =
-        name.isNotBlank() && email.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty() &&
-                !isEmailError && !isPasswordError && !isPasswordCheckError
+    RegisterScreen(
+        uiState = uiState,
+        onNameChange = viewModel::onNameChange,
+        onEmailChange = viewModel::onEmailChange,
+        onPasswordChange = viewModel::onPasswordChange,
+        onPasswordCheckChange = viewModel::onPasswordCheckChange,
+        onRegisterClick = viewModel::onRegisterClick,
+        modifier = modifier,
+    )
+}
 
+@Composable
+fun RegisterScreen(
+    uiState: RegisterUiState,
+    onNameChange: (String) -> Unit,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onPasswordCheckChange: (String) -> Unit,
+    onRegisterClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -61,8 +82,8 @@ fun RegisterScreen(
 
         SoptTextField(
             label = "이름",
-            value = name,
-            onValueChange = { name = it },
+            value = uiState.name,
+            onValueChange = onNameChange,
             placeholder = "홍길동"
         )
 
@@ -70,10 +91,10 @@ fun RegisterScreen(
 
         SoptTextField(
             label = "이메일 주소",
-            value = email,
-            onValueChange = { email = it },
+            value = uiState.email,
+            onValueChange = onEmailChange,
             placeholder = "abc@email.com",
-            isError = isEmailError,
+            isError = uiState.isEmailError,
             errorMessage = "올바른 이메일을 입력해주세요."
         )
 
@@ -81,11 +102,11 @@ fun RegisterScreen(
 
         SoptTextField(
             label = "비밀번호",
-            value = password,
-            onValueChange = { password = it },
+            value = uiState.password,
+            onValueChange = onPasswordChange,
             placeholder = "6자 이상의 비밀번호",
             isPassword = true,
-            isError = isPasswordError,
+            isError = uiState.isPasswordError,
             errorMessage = "비밀번호는 6자 이상 입력해주세요."
         )
 
@@ -93,11 +114,11 @@ fun RegisterScreen(
 
         SoptTextField(
             label = "비밀번호 확인",
-            value = passwordCheck,
-            onValueChange = { passwordCheck = it },
+            value = uiState.passwordCheck,
+            onValueChange = onPasswordCheckChange,
             placeholder = "6자 이상의 비밀번호",
             isPassword = true,
-            isError = isPasswordCheckError,
+            isError = uiState.isPasswordCheckError,
             errorMessage = "비밀번호와 동일하게 입력해주세요."
         )
 
@@ -105,18 +126,26 @@ fun RegisterScreen(
 
         SoptButton(
             text = "회원가입",
-            enabled = isButtonEnabled,
-            onClick = { onRegisterClick(email, password) }
+            enabled = uiState.isButtonEnabled,
+            onClick = onRegisterClick,
         )
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    showSystemUi = true,
+)
 @Composable
 private fun RegisterScreenPreview() {
     PlaySoptTheme {
         RegisterScreen(
-            onRegisterClick = { _, _ -> }
+            uiState = RegisterUiState(),
+            onNameChange = {},
+            onEmailChange = {},
+            onPasswordChange = {},
+            onPasswordCheckChange = {},
+            onRegisterClick = {},
         )
     }
 }

@@ -12,12 +12,11 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import org.sopt.play.core.designsystem.component.SoptProductCard
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.White
@@ -25,22 +24,33 @@ import org.sopt.play.presentation.home.component.HomeBanner
 import org.sopt.play.presentation.home.component.HomeMenuTab
 import org.sopt.play.presentation.home.component.HomeRecommendHeader
 import org.sopt.play.presentation.home.component.HomeTopBar
-import org.sopt.play.presentation.home.model.Banner
 import org.sopt.play.presentation.home.dummy.HomeDummyData
 import org.sopt.play.presentation.home.model.HomeCategory
 import org.sopt.play.presentation.home.model.HomeMenu
-import org.sopt.play.presentation.home.model.Product
 
 @Composable
+fun HomeRoute(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = viewModel(),
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    HomeScreen(
+        uiState = uiState,
+        onMenuClick = viewModel::onMenuClick,
+        onCategoryClick = viewModel::onCategoryClick,
+        onLikeClick = viewModel::onLikeClick,
+        modifier = modifier,
+    )
+}
+@Composable
 fun HomeScreen(
-    userName: String,
-    banners: List<Banner>,
-    products: List<Product>,
+    uiState: HomeUiState,
+    onMenuClick: (HomeMenu) -> Unit,
+    onCategoryClick: (HomeCategory) -> Unit,
+    onLikeClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var selectedMenu by rememberSaveable { mutableStateOf(HomeMenu.HOME) }
-    var selectedCategory by rememberSaveable { mutableStateOf(HomeCategory.ALL) }
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -57,8 +67,8 @@ fun HomeScreen(
                 span = { GridItemSpan(maxLineSpan) },
             ) {
                 HomeMenuTab(
-                    selectedMenu = selectedMenu,
-                    onMenuClick = { selectedMenu = it },
+                    selectedMenu = uiState.selectedMenu,
+                    onMenuClick = onMenuClick,
                 )
             }
 
@@ -66,7 +76,7 @@ fun HomeScreen(
                 span = { GridItemSpan(maxLineSpan) },
             ) {
                 HomeBanner(
-                    banners = banners,
+                    banners = uiState.banners,
                     modifier = Modifier.padding(vertical = 8.dp),
                 )
             }
@@ -75,9 +85,9 @@ fun HomeScreen(
                 span = { GridItemSpan(maxLineSpan) },
             ) {
                 HomeRecommendHeader(
-                    userName = userName,
-                    selectedCategory = selectedCategory,
-                    onCategoryClick = { selectedCategory = it },
+                    userName = uiState.userName,
+                    selectedCategory = uiState.selectedCategory,
+                    onCategoryClick = onCategoryClick,
                     modifier = Modifier.padding(
                         top = 20.dp,
                         bottom = 20.dp,
@@ -86,11 +96,12 @@ fun HomeScreen(
             }
 
             items(
-                items = products,
+                items = uiState.products,
                 key = { it.id },
             ) { product ->
                 SoptProductCard(
                     product = product,
+                    onLikeClick = { onLikeClick(product.id) },
                 )
             }
         }
@@ -105,9 +116,13 @@ fun HomeScreen(
 private fun HomeScreenPreview() {
     PlaySoptTheme {
         HomeScreen(
-            userName = "김솝트",
-            banners = HomeDummyData.banners,
-            products = HomeDummyData.products,
+            uiState = HomeUiState(
+                banners = HomeDummyData.banners,
+                products = HomeDummyData.products,
+            ),
+            onMenuClick = {},
+            onCategoryClick = {},
+            onLikeClick = {},
         )
     }
 }

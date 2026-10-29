@@ -1,6 +1,7 @@
 package org.sopt.play.core.designsystem.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,6 +32,7 @@ import org.sopt.play.presentation.home.model.Product
 @Composable
 fun SoptProductCard(
     product: Product,
+    onLikeClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -58,7 +60,8 @@ fun SoptProductCard(
                         bottom = 8.dp,
                         end = 8.dp,
                     )
-                    .size(24.dp),
+                    .size(24.dp)
+                    .clickable(onClick = onLikeClick),
             )
         }
 
@@ -137,11 +140,13 @@ private fun SoptProductCardPreview() {
         ) {
             SoptProductCard(
                 product = longTextProduct,
+                onLikeClick = {},
                 modifier = Modifier.weight(1f),
             )
 
             SoptProductCard(
                 product = shortTextProduct,
+                onLikeClick = {},
                 modifier = Modifier.weight(1f),
             )
         }

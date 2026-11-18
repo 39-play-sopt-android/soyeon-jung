@@ -1,5 +1,6 @@
 package org.sopt.play.core.designsystem.component
 
+import android.R.attr.onClick
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -56,11 +57,9 @@ fun SoptProductCard(
                 tint = if (product.isLiked) Red else White,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(
-                        bottom = 8.dp,
-                        end = 8.dp,
-                    )
-                    .size(24.dp)
+                    .clickable(onClick = onLikeClick)
+                    .padding(8.dp)
+                    .size(24.dp),
                     .clickable(onClick = onLikeClick),
             )
         }
@@ -70,7 +69,7 @@ fun SoptProductCard(
                 .fillMaxWidth()
                 .padding(
                     start = 8.dp,
-                    top =12.dp,
+                    top = 12.dp,
                     end = 8.dp,
                     bottom = 20.dp
                 ),

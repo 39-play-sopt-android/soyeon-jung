@@ -5,11 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
-import org.sopt.play.presentation.home.dummy.HomeDummyData
-import org.sopt.play.presentation.home.HomeScreen
-import org.sopt.play.presentation.login.LoginScreen
-import org.sopt.play.presentation.register.RegisterScreen
+import org.sopt.play.presentation.home.HomeRoute
+import org.sopt.play.presentation.login.LoginRoute
+import org.sopt.play.presentation.register.RegisterRoute
 
 @Composable
 fun MainNavHost(
@@ -22,12 +20,8 @@ fun MainNavHost(
         startDestination = Route.Login(),
         modifier = modifier,
     ) {
-        composable<Route.Login> { backStackEntry ->
-            val login = backStackEntry.toRoute<Route.Login>()
-
-            LoginScreen(
-                registeredEmail = login.email,
-                registeredPassword = login.password,
+        composable<Route.Login> {
+            LoginRoute(
                 onLoginSuccess = {
                     navController.navigate(Route.Home) {
                         popUpTo<Route.Login> {
@@ -42,8 +36,8 @@ fun MainNavHost(
         }
 
         composable<Route.Register> {
-            RegisterScreen(
-                onRegisterClick = { email, password ->
+            RegisterRoute(
+                onRegisterSuccess = { email, password ->
                     navController.navigate(Route.Login(email, password)) {
                         popUpTo<Route.Login> {
                             inclusive = true
@@ -54,10 +48,7 @@ fun MainNavHost(
         }
 
         composable<Route.Home> {
-            HomeScreen(
-                userName = "김솝트",
-                banners = HomeDummyData.banners,
-                products = HomeDummyData.products,)
+            HomeRoute()
         }
     }
 }

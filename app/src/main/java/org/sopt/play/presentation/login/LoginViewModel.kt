@@ -35,6 +35,7 @@ class LoginViewModel (
 
     fun onLoginClick() {
         val state = _uiState.value
+        if (!state.isButtonEnabled) return
         val isSuccess = state.email == registered.email && state.password == registered.password
 
         viewModelScope.launch {

@@ -36,6 +36,7 @@ class RegisterViewModel : ViewModel() {
 
     fun onRegisterClick() {
         val state = _uiState.value
+        if (!state.isButtonEnabled) return
         viewModelScope.launch {
             _sideEffect.emit(
                 RegisterSideEffect.NavigateToLogin(

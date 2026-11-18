@@ -1,6 +1,5 @@
 package org.sopt.play.core.designsystem.component
 
-import android.R.attr.onClick
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -60,7 +59,6 @@ fun SoptProductCard(
                     .clickable(onClick = onLikeClick)
                     .padding(8.dp)
                     .size(24.dp),
-                    .clickable(onClick = onLikeClick),
             )
         }
 
@@ -91,7 +89,7 @@ fun SoptProductCard(
                 overflow = TextOverflow.Ellipsis,
             )
 
-            Row (
+            Row(
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(

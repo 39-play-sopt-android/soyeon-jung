@@ -47,11 +47,7 @@ fun LoginRoute(
             when (sideEffect) {
                 LoginSideEffect.NavigateToHome -> onLoginSuccess()
 
-            LoginSideEffect.ShowLoginFailToast -> Toast.makeText(
-            context,
-            "이메일 또는 비밀번호가 올바르지 않아요.",
-            Toast.LENGTH_SHORT,
-            ).show()
+            LoginSideEffect.ShowLoginFailToast -> Toast.makeText(context, "이메일 또는 비밀번호가 올바르지 않아요.", Toast.LENGTH_SHORT,).show()
         }
     }
 }

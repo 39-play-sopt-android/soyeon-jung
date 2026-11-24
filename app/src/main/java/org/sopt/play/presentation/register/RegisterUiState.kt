@@ -1,6 +1,6 @@
 package org.sopt.play.presentation.register
 
-import android.util.Patterns
+import org.sopt.play.core.util.AuthValidator
 
 data class RegisterUiState(
     val name: String = "",
@@ -9,10 +9,10 @@ data class RegisterUiState(
     val passwordCheck: String = "",
 ) {
     val isEmailError: Boolean
-        get() = email.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        get() = AuthValidator.isEmailError(email)
 
     val isPasswordError: Boolean
-        get() = password.isNotEmpty() && password.length < 6
+        get() = AuthValidator.isPasswordError(password)
 
     val isPasswordCheckError: Boolean
         get() = passwordCheck.isNotEmpty() && passwordCheck != password

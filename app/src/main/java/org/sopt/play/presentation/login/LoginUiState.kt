@@ -1,16 +1,16 @@
 package org.sopt.play.presentation.login
 
-import android.util.Patterns
+import org.sopt.play.core.util.AuthValidator
 
 data class LoginUiState(
     val email: String = "",
     val password: String = "",
 ) {
     val isEmailError: Boolean
-        get() = email.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        get() = AuthValidator.isEmailError(email)
 
     val isPasswordError: Boolean
-        get() = password.isNotEmpty() && password.length < 6
+        get() = AuthValidator.isPasswordError(password)
 
     val isButtonEnabled: Boolean
         get() = email.isNotEmpty() && password.isNotEmpty() && !isEmailError && !isPasswordError

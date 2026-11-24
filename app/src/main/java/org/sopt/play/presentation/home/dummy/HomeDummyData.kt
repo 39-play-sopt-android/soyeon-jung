@@ -2,7 +2,7 @@ package org.sopt.play.presentation.home.dummy
 
 import org.sopt.play.R
 import org.sopt.play.presentation.home.model.Banner
-import org.sopt.play.presentation.home.model.Product
+import org.sopt.play.core.model.Product
 
 object HomeDummyData {
 

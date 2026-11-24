@@ -27,7 +27,7 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.Red
 import org.sopt.play.core.designsystem.theme.SoptTypography
 import org.sopt.play.core.designsystem.theme.White
-import org.sopt.play.presentation.home.model.Product
+import org.sopt.play.core.model.Product
 
 @Composable
 fun SoptProductCard(

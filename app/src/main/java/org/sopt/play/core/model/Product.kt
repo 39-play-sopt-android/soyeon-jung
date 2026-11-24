@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.home.model
+package org.sopt.play.core.model
 
 import androidx.annotation.DrawableRes
 

@@ -1,6 +1,7 @@
 package org.sopt.play.core.designsystem.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,11 +27,12 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.Red
 import org.sopt.play.core.designsystem.theme.SoptTypography
 import org.sopt.play.core.designsystem.theme.White
-import org.sopt.play.presentation.home.model.Product
+import org.sopt.play.core.model.Product
 
 @Composable
 fun SoptProductCard(
     product: Product,
+    onLikeClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -54,10 +56,8 @@ fun SoptProductCard(
                 tint = if (product.isLiked) Red else White,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(
-                        bottom = 8.dp,
-                        end = 8.dp,
-                    )
+                    .clickable(onClick = onLikeClick)
+                    .padding(8.dp)
                     .size(24.dp),
             )
         }
@@ -67,7 +67,7 @@ fun SoptProductCard(
                 .fillMaxWidth()
                 .padding(
                     start = 8.dp,
-                    top =12.dp,
+                    top = 12.dp,
                     end = 8.dp,
                     bottom = 20.dp
                 ),
@@ -89,7 +89,7 @@ fun SoptProductCard(
                 overflow = TextOverflow.Ellipsis,
             )
 
-            Row (
+            Row(
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
@@ -137,11 +137,13 @@ private fun SoptProductCardPreview() {
         ) {
             SoptProductCard(
                 product = longTextProduct,
+                onLikeClick = {},
                 modifier = Modifier.weight(1f),
             )
 
             SoptProductCard(
                 product = shortTextProduct,
+                onLikeClick = {},
                 modifier = Modifier.weight(1f),
             )
         }

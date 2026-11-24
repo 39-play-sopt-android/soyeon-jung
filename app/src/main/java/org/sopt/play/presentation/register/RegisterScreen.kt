@@ -25,7 +25,7 @@ import org.sopt.play.core.designsystem.theme.SoptTypography
 
 @Composable
 fun RegisterRoute(
-    onRegisterSuccess: (String, String) -> Unit,
+    onRegisterSuccess: (email: String, password: String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterViewModel = viewModel(),
 ) {

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
@@ -21,7 +20,6 @@ import org.sopt.play.core.designsystem.theme.Gray1
 import org.sopt.play.core.designsystem.theme.Gray3
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.SoptTypography
-import org.sopt.play.core.designsystem.theme.White
 
 @Composable
 fun SoptButton(
@@ -33,17 +31,17 @@ fun SoptButton(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = 52.dp)
             .clip(shape = CircleShape)
             .background(if (enabled) Black else Gray1)
             .clickable(enabled = enabled, onClick = onClick)
+            // 피그마 버튼 높이 49 = 위아래 패딩 16 + 글자 높이(sb14 × 1.2)
             .padding(vertical = 16.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = text,
             style = SoptTypography.sb14,
-            color = if (enabled) White else Gray3
+            color = if (enabled) Gray1 else Gray3
         )
     }
 }

@@ -88,7 +88,7 @@ fun SoptSearchTextField(
                     innerTextField()
                 }
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_search),
+                    painter = painterResource(id = R.drawable.ic_search_field),
                     contentDescription = "검색",
                     tint = Gray3,
                     modifier = Modifier

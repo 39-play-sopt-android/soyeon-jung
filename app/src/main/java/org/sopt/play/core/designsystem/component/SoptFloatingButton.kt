@@ -10,9 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.draw.dropShadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
@@ -27,7 +29,14 @@ fun SoptFloatingButton(
     Box(
         modifier = modifier
             .size(60.dp)
-            .shadow(elevation = 6.dp, shape = CircleShape)
+            .dropShadow(
+                shape = CircleShape,
+                shadow = androidx.compose.ui.graphics.shadow.Shadow(
+                    radius = 12.dp,
+                    color = Color.Black.copy(alpha = 0.15f),
+                    offset = DpOffset(x = 0.dp, y = 4.dp),
+                ),
+            )
             .clip(CircleShape)
             .background(Red)
             .clickable(onClick = onClick),

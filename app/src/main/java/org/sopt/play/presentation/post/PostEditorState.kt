@@ -1,5 +1,6 @@
 package org.sopt.play.presentation.post
 
+// 바텀시트 하나로 작성/수정을 같이 처리
 data class PostEditorState(
     val postId: Long? = null,
     val title: String = "",

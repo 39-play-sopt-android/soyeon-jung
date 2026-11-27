@@ -28,6 +28,8 @@ import org.sopt.play.core.designsystem.theme.Gray3
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.SoptTypography
 import org.sopt.play.core.designsystem.theme.White
+import org.sopt.play.presentation.post.component.PostBottomSheet
+import org.sopt.play.presentation.post.component.PostDeleteDialog
 import org.sopt.play.presentation.post.model.PostItem
 
 @Composable
@@ -52,11 +54,30 @@ fun PostRoute(
         uiState = uiState,
         onKeywordChange = viewModel::onKeywordChange,
         onSearch = viewModel::onSearch,
-        onPostClick = {},
-        onPostLongClick = {},
-        onFabClick = {},
+        onPostClick = viewModel::onPostClick,
+        onPostLongClick = viewModel::onPostLongClick,
+        onFabClick = viewModel::onFabClick,
         modifier = modifier,
     )
+
+    // editor가 있으면 바텀시트 열기 (작성/수정 공용)
+    uiState.editor?.let { editor ->
+        PostBottomSheet(
+            editor = editor,
+            onTitleChange = viewModel::onTitleChange,
+            onContentChange = viewModel::onContentChange,
+            onConfirm = viewModel::onEditorConfirm,
+            onDismiss = viewModel::onEditorDismiss,
+        )
+    }
+
+    // 삭제할 게시글이 정해지면 모달 열기
+    if (uiState.deleteTargetId != null) {
+        PostDeleteDialog(
+            onConfirm = viewModel::onDeleteConfirm,
+            onDismiss = viewModel::onDeleteDismiss,
+        )
+    }
 }
 
 @Composable

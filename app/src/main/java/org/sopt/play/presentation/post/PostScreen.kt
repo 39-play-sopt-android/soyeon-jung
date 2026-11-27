@@ -29,6 +29,7 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.SoptTypography
 import org.sopt.play.core.designsystem.theme.White
 import org.sopt.play.presentation.post.component.PostBottomSheet
+import org.sopt.play.presentation.post.component.PostDeleteDialog
 import org.sopt.play.presentation.post.model.PostItem
 
 @Composable
@@ -54,7 +55,7 @@ fun PostRoute(
         onKeywordChange = viewModel::onKeywordChange,
         onSearch = viewModel::onSearch,
         onPostClick = viewModel::onPostClick,
-        onPostLongClick = {},
+        onPostLongClick = viewModel::onPostLongClick,
         onFabClick = viewModel::onFabClick,
         modifier = modifier,
     )
@@ -67,6 +68,14 @@ fun PostRoute(
             onContentChange = viewModel::onContentChange,
             onConfirm = viewModel::onEditorConfirm,
             onDismiss = viewModel::onEditorDismiss,
+        )
+    }
+
+    // 삭제할 게시글이 정해지면 모달 열기
+    if (uiState.deleteTargetId != null) {
+        PostDeleteDialog(
+            onConfirm = viewModel::onDeleteConfirm,
+            onDismiss = viewModel::onDeleteDismiss,
         )
     }
 }

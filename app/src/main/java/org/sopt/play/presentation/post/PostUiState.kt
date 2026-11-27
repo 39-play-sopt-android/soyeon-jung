@@ -7,6 +7,7 @@ data class PostUiState(
     val keyword: String = "",
     val isLoading: Boolean = false,
     val editor: PostEditorState? = null,
+    val deleteTargetId: Long? = null,
 ) {
     // 불러오는 중이 아닌데 목록이 비어 있으면 Empty UI
     val isEmpty: Boolean

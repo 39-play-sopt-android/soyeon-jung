@@ -112,6 +112,30 @@ class PostViewModel : ViewModel() {
         }
     }
 
+    fun onPostLongClick(postId: Long) {
+        _uiState.update { it.copy(deleteTargetId = postId) }
+    }
+
+    fun onDeleteDismiss() {
+        _uiState.update { it.copy(deleteTargetId = null) }
+    }
+
+    fun onDeleteConfirm() {
+        val postId = _uiState.value.deleteTargetId ?: return
+        // 모달 먼저 닫기
+        _uiState.update { it.copy(deleteTargetId = null) }
+
+        viewModelScope.launch {
+            runCatching {
+                postService.deletePost(postId)
+            }.onSuccess {
+                getPosts()
+            }.onFailure {
+                showToast("게시글 삭제에 실패했어요.")
+            }
+        }
+    }
+
     private fun getPosts() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }

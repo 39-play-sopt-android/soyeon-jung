@@ -10,7 +10,11 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.sopt.play.core.session.UserSession
 import org.sopt.play.data.remote.ServicePool
+import org.sopt.play.data.remote.dto.CreatePostRequest
+import org.sopt.play.data.remote.dto.UpdatePostRequest
+import org.sopt.play.presentation.post.model.PostItem
 import org.sopt.play.presentation.post.model.toPostItem
 
 class PostViewModel : ViewModel() {
@@ -39,6 +43,73 @@ class PostViewModel : ViewModel() {
             return
         }
         getPosts()
+    }
+
+    fun onFabClick() {
+        _uiState.update { it.copy(editor = PostEditorState()) }
+    }
+
+    fun onPostClick(post: PostItem) {
+        _uiState.update {
+            it.copy(
+                editor = PostEditorState(
+                    postId = post.id,
+                    title = post.title,
+                    content = post.content,
+                    initialTitle = post.title,
+                    initialContent = post.content,
+                ),
+            )
+        }
+    }
+
+    fun onTitleChange(title: String) {
+        // 20자를 넘으면 아예 반영하지 않아서 입력이 안 돼요
+        if (title.length > PostEditorState.MAX_TITLE_LENGTH) return
+        _uiState.update { it.copy(editor = it.editor?.copy(title = title)) }
+    }
+
+    fun onContentChange(content: String) {
+        if (content.length > PostEditorState.MAX_CONTENT_LENGTH) return
+        _uiState.update { it.copy(editor = it.editor?.copy(content = content)) }
+    }
+
+    fun onEditorDismiss() {
+        _uiState.update { it.copy(editor = null) }
+    }
+
+    fun onEditorConfirm() {
+        val editor = _uiState.value.editor ?: return
+        if (!editor.isButtonEnabled) return
+        // 바텀시트 먼저 닫기 (연타해도 editor가 null이라 위에서 return돼요)
+        _uiState.update { it.copy(editor = null) }
+
+        val postId = editor.postId
+        viewModelScope.launch {
+            runCatching {
+                if (postId == null) {
+                    postService.createPost(
+                        CreatePostRequest(
+                            title = editor.title,
+                            content = editor.content,
+                            author = UserSession.name,
+                        ),
+                    )
+                } else {
+                    postService.updatePost(
+                        postId = postId,
+                        request = UpdatePostRequest(
+                            title = editor.title,
+                            content = editor.content,
+                        ),
+                    )
+                }
+            }.onSuccess {
+                getPosts()
+            }.onFailure {
+                showToast(if (postId == null) "게시글 작성에 실패했어요." else "게시글 수정에 실패했어요.")
+            }
+        }
     }
 
     private fun getPosts() {

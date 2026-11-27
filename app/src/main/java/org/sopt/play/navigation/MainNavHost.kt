@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import org.sopt.play.presentation.home.HomeRoute
 import org.sopt.play.presentation.login.LoginRoute
+import org.sopt.play.presentation.post.PostRoute
 import org.sopt.play.presentation.register.RegisterRoute
 
 @Composable
@@ -37,8 +38,14 @@ fun MainNavHost(
 
         composable<Route.Register> {
             RegisterRoute(
-                onRegisterSuccess = { email, password ->
-                    navController.navigate(Route.Login(email, password)) {
+                onRegisterSuccess = { name, email, password ->
+                    navController.navigate(
+                        Route.Login(
+                            name = name,
+                            email = email,
+                            password = password,
+                        ),
+                    ) {
                         popUpTo<Route.Login> {
                             inclusive = true
                         }
@@ -48,7 +55,15 @@ fun MainNavHost(
         }
 
         composable<Route.Home> {
-            HomeRoute()
+            HomeRoute(
+                onSearchClick = {
+                    navController.navigate(Route.Post)
+                },
+            )
+        }
+
+        composable<Route.Post> {
+            PostRoute()
         }
     }
 }

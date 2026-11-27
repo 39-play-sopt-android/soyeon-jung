@@ -30,6 +30,7 @@ import org.sopt.play.presentation.home.model.HomeMenu
 
 @Composable
 fun HomeRoute(
+    onSearchClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(),
 ) {
@@ -37,6 +38,7 @@ fun HomeRoute(
 
     HomeScreen(
         uiState = uiState,
+        onSearchClick = onSearchClick,
         onMenuClick = viewModel::onMenuClick,
         onCategoryClick = viewModel::onCategoryClick,
         onLikeClick = viewModel::onLikeClick,
@@ -47,6 +49,7 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     uiState: HomeUiState,
+    onSearchClick: () -> Unit,
     onMenuClick: (HomeMenu) -> Unit,
     onCategoryClick: (HomeCategory) -> Unit,
     onLikeClick: (Int) -> Unit,
@@ -57,7 +60,7 @@ fun HomeScreen(
             .fillMaxSize()
             .background(White),
     ) {
-        HomeTopBar()
+        HomeTopBar(onSearchClick = onSearchClick)
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
@@ -121,6 +124,7 @@ private fun HomeScreenPreview() {
                 banners = HomeDummyData.banners,
                 products = HomeDummyData.products,
             ),
+            onSearchClick = {},
             onMenuClick = {},
             onCategoryClick = {},
             onLikeClick = {},

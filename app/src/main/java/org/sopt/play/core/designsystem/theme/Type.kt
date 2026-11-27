@@ -60,4 +60,19 @@ object SoptTypography {
         lineHeight = 1.2.em,
         letterSpacing = (-0.01).em,
     )
+
+    val m16 = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
+        lineHeight = 1.2.em,
+        letterSpacing = (-0.01).em,
+    )
+    val m12 = TextStyle(
+        fontFamily = pretendard,
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
+        lineHeight = 1.2.em,
+        letterSpacing = (-0.01).em,
+    )
 }

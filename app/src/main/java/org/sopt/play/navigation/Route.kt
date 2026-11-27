@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 sealed interface Route {
     @Serializable
     data class Login(
+        val name: String = "",
         val email: String = "",
         val password: String = "",
     ) : Route
@@ -14,4 +15,7 @@ sealed interface Route {
 
     @Serializable
     data object Home : Route
+
+    @Serializable
+    data object Post : Route
 }

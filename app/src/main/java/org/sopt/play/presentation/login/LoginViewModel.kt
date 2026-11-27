@@ -12,12 +12,16 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.sopt.play.core.session.UserSession
+import org.sopt.play.data.remote.ServicePool
+import org.sopt.play.data.remote.dto.AuthorizationCodeRequest
 import org.sopt.play.navigation.Route
 
-class LoginViewModel (
+class LoginViewModel(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val registered = savedStateHandle.toRoute<Route.Login>()
+    private val memberService = ServicePool.memberService
 
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
@@ -40,10 +44,26 @@ class LoginViewModel (
 
         viewModelScope.launch {
             if (isSuccess) {
+                UserSession.name = registered.name
+                issueAuthorizationCode()
                 _sideEffect.emit(LoginSideEffect.NavigateToHome)
             } else {
                 _sideEffect.emit(LoginSideEffect.ShowLoginFailToast)
             }
         }
+    }
+
+    private suspend fun issueAuthorizationCode() {
+        runCatching {
+            memberService.issueAuthorizationCode(
+                AuthorizationCodeRequest(part = ANDROID_PART),
+            )
+        }.onSuccess { response ->
+            UserSession.authorizationCode = response.data?.authorizationCode
+        }
+    }
+
+    companion object {
+        private const val ANDROID_PART = "ANDROID"
     }
 }

@@ -28,8 +28,6 @@ import org.sopt.play.core.designsystem.theme.Gray3
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.designsystem.theme.SoptTypography
 import org.sopt.play.core.designsystem.theme.White
-import org.sopt.play.presentation.post.component.PostBottomSheet
-import org.sopt.play.presentation.post.component.PostDeleteDialog
 import org.sopt.play.presentation.post.model.PostItem
 
 @Composable
@@ -54,30 +52,11 @@ fun PostRoute(
         uiState = uiState,
         onKeywordChange = viewModel::onKeywordChange,
         onSearch = viewModel::onSearch,
-        onPostClick = viewModel::onPostClick,
-        onPostLongClick = viewModel::onPostLongClick,
-        onFabClick = viewModel::onFabClick,
+        onPostClick = {},
+        onPostLongClick = {},
+        onFabClick = {},
         modifier = modifier,
     )
-
-    // editor가 있으면 바텀시트 열기 (작성/수정 공용)
-    uiState.editor?.let { editor ->
-        PostBottomSheet(
-            editor = editor,
-            onTitleChange = viewModel::onTitleChange,
-            onContentChange = viewModel::onContentChange,
-            onConfirm = viewModel::onEditorConfirm,
-            onDismiss = viewModel::onEditorDismiss,
-        )
-    }
-
-    // 삭제할 게시글이 정해지면 모달 열기
-    if (uiState.deleteTargetId != null) {
-        PostDeleteDialog(
-            onConfirm = viewModel::onDeleteConfirm,
-            onDismiss = viewModel::onDeleteDismiss,
-        )
-    }
 }
 
 @Composable
@@ -103,18 +82,7 @@ fun PostScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
             )
 
-            if (uiState.isEmpty) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text(
-                        text = "검색 결과가 없습니다.",
-                        style = SoptTypography.m18,
-                        color = Gray3,
-                    )
-                }
-            } else {
+            if (!uiState.isEmpty) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(
@@ -139,6 +107,16 @@ fun PostScreen(
                     }
                 }
             }
+        }
+
+        // 피그마처럼 검색창 아래가 아니라 화면 정가운데에 배치
+        if (uiState.isEmpty) {
+            Text(
+                text = "검색 결과가 없습니다.",
+                style = SoptTypography.m18,
+                color = Gray3,
+                modifier = Modifier.align(Alignment.Center),
+            )
         }
 
         SoptFloatingButton(

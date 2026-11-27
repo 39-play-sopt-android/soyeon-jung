@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import org.sopt.play.presentation.home.HomeRoute
 import org.sopt.play.presentation.login.LoginRoute
+import org.sopt.play.presentation.post.PostRoute
 import org.sopt.play.presentation.register.RegisterRoute
 
 @Composable

@@ -1,6 +1,7 @@
 package org.sopt.play.presentation.home.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +21,7 @@ import org.sopt.play.core.designsystem.theme.White
 
 @Composable
 fun HomeTopBar(
+    onSearchClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -44,6 +46,7 @@ fun HomeTopBar(
             contentDescription = "검색",
             tint = Black,
             modifier = Modifier
+                .clickable(onClick = onSearchClick)
                 .padding(10.dp)
                 .size(28.dp),
         )

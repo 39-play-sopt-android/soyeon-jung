@@ -54,7 +54,15 @@ fun MainNavHost(
         }
 
         composable<Route.Home> {
-            HomeRoute()
+            HomeRoute(
+                onSearchClick = {
+                    navController.navigate(Route.Post)
+                },
+            )
+        }
+
+        composable<Route.Post> {
+            PostRoute()
         }
     }
 }

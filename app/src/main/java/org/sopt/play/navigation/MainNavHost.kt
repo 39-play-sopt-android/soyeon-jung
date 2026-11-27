@@ -37,8 +37,14 @@ fun MainNavHost(
 
         composable<Route.Register> {
             RegisterRoute(
-                onRegisterSuccess = { email, password ->
-                    navController.navigate(Route.Login(email, password)) {
+                onRegisterSuccess = { name, email, password ->
+                    navController.navigate(
+                        Route.Login(
+                            name = name,
+                            email = email,
+                            password = password,
+                        ),
+                    ) {
                         popUpTo<Route.Login> {
                             inclusive = true
                         }

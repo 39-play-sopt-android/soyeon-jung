@@ -40,6 +40,7 @@ class RegisterViewModel : ViewModel() {
         viewModelScope.launch {
             _sideEffect.emit(
                 RegisterSideEffect.NavigateToLogin(
+                    name = state.name,
                     email = state.email,
                     password = state.password,
                 ),

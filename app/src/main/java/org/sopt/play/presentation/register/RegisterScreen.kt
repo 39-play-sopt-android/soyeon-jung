@@ -25,7 +25,7 @@ import org.sopt.play.core.designsystem.theme.SoptTypography
 
 @Composable
 fun RegisterRoute(
-    onRegisterSuccess: (email: String, password: String) -> Unit,
+    onRegisterSuccess: (name: String, email: String, password: String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterViewModel = viewModel(),
 ) {
@@ -35,6 +35,7 @@ fun RegisterRoute(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 is RegisterSideEffect.NavigateToLogin -> onRegisterSuccess(
+                    sideEffect.name,
                     sideEffect.email,
                     sideEffect.password,
                 )
